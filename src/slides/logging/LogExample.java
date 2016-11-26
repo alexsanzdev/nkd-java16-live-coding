@@ -9,10 +9,14 @@ public class LogExample {
     public static void main(String[] args) {
         setupLogging();
 
-        Service service = new Service();
+        MatchEngine matchEngine = new MatchEngine();
+
+        MessageManager service = new MessageManager();
         service.start();
         service.doOperation();
+        matchEngine.match(100);
         service.stop();
+        matchEngine.match(230);
     }
 
     private static void setupLogging() {

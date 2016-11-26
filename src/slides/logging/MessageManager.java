@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Service {
+public class MessageManager {
 
-    private static final Logger log = Logger.getLogger(Service.class.getName());
+    private static final Logger log = Logger.getLogger(MessageManager.class.getName());
 
     public void start() {
         log.info("Starting service");

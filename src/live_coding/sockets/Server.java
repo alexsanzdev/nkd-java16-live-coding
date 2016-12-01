@@ -1,9 +1,6 @@
 package live_coding.sockets;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,13 +24,23 @@ public class Server {
                                 try {
                                     InputStream inputStream = clientSocket.getInputStream();
                                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                                    BufferedReader reader = new BufferedReader(inputStreamReader);
 
+                                    OutputStream outputStream = clientSocket.getOutputStream();
+                                    PrintWriter writer = new PrintWriter(outputStream);
+
+                                    BufferedReader reader = new BufferedReader(inputStreamReader);
                                     for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                                         System.out.println(line);
+                                        writer.println("Message received: " + line);
+                                        writer.flush();
+                                        if (line.equals("exit")) {
+                                            break;
+                                        }
                                     }
 
                                     reader.close();
+                                    writer.close();
+                                    clientSocket.close();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
